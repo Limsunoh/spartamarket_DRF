@@ -11,18 +11,16 @@ class ProductListSerializer(serializers.ModelSerializer):
 class ProductDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ["id", "author", "title", "content", "created_at", "updated_at"]  # 제품의 상세 정보
-
+        fields = ["id", "author", "title", "content", "image", "created_at", "updated_at"]  
 
 # 제품 생성에 사용되는 시리얼라이저
 class ProductCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ["title", "content"]  # 제품 생성 시 필요한 필드
-
+        fields = ["title", "content", "image"]  
 
 # 제품 업데이트에 사용되는 시리얼라이저
 class ProductUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ["title", "content"]  # 제품 업데이트 시 필요한 필드
+        fields = ["title", "content", "image"] 

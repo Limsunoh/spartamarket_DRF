@@ -15,12 +15,13 @@ class Product(TimeStampedModel):
 	author = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 	title = models.CharField(max_length=150)
 	content = models.TextField()
+	image = models.ImageField(default='default_image.jpeg', upload_to='uploads/', height_field=None, width_field=None, max_length=None)
 
 	def __str__(self):
 		return self.title
 
 	class Meta:
-		ordering = ["-title"]
+		ordering = ["-id"]
 
 
 class Comment(models.Model):

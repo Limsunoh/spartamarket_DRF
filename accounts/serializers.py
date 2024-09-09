@@ -26,3 +26,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username', 'nickname', 'email', 'name',
                 'birth_date', 'gender', 'memo']
+        
+        
+class ProductUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["title", "content"]  # 제품 업데이트 시 필요한 필드

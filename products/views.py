@@ -1,6 +1,8 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from .models import Product
 from .serializers import ProductListSerializer, ProductDetailSerializer, ProductCreateSerializer, ProductUpdateSerializer
+from rest_framework.permissions import IsAuthenticated
+
 
 
 
@@ -21,8 +23,9 @@ class ProductListCreateView(ListCreateAPIView):
 class ProductDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     lookup_field = 'id'
+    permission_classes = [IsAuthenticated]
 
     def get_serializer_class(self):
-        if self.request.method in ['PUT', 'PATCH']:
+        if self.request.method in ['PUT', 'DELETE']:
             return ProductUpdateSerializer  # Update 시에는 업데이트용 시리얼라이저
         return ProductDetailSerializer  # Retrieve, Delete 시에는 상세용 시리얼라이저
