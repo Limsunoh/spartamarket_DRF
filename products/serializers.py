@@ -1,15 +1,28 @@
-from django.db.migrations import serializer
-from DRF_market.products.models import Post
-from DRF_market.accounts.models import User
+from .models import Product
+from rest_framework import serializers
 
 
-class AuthorSerializer(serializer.ModelSerializer):
+class ProductListSerializer(serializers.ModelSerializer):
 	class Meta:
-		model = User
-		fields = ["id", "username", "email", "password"]
+		model = Product
+		fields = ["title"]
+
+# 제품 상세 조회에 사용되는 시리얼라이저
+class ProductDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ["id", "author", "title", "content", "created_at", "updated_at"]  # 제품의 상세 정보
 
 
-class PostListSerializer(serializer.ModelSerializer):
-	class Meta:
-		model = Post
-		fields = ["id", "title"]
+# 제품 생성에 사용되는 시리얼라이저
+class ProductCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ["title", "content"]  # 제품 생성 시 필요한 필드
+
+
+# 제품 업데이트에 사용되는 시리얼라이저
+class ProductUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ["title", "content"]  # 제품 업데이트 시 필요한 필드
