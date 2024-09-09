@@ -1,15 +1,16 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from .models import Product
 from .serializers import ProductListSerializer, ProductDetailSerializer, ProductCreateSerializer, ProductUpdateSerializer
-from rest_framework.permissions import IsAuthenticated
-
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 
 
 
         
 class ProductListCreateView(ListCreateAPIView):
     queryset = Product.objects.all()
-
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    
+    
     def get_serializer_class(self):
         if self.request.method == 'POST':
             return ProductCreateSerializer  # Create 시에는 생성용 시리얼라이저
@@ -19,11 +20,14 @@ class ProductListCreateView(ListCreateAPIView):
         serializer.save(author=self.request.user)  # author는 현재 사용자로 설정
 
 
+
+
+
 # Retrieve, Update, and Delete a single product
 class ProductDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     lookup_field = 'id'
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def get_serializer_class(self):
         if self.request.method in ['PUT', 'DELETE']:

@@ -19,8 +19,3 @@ class ProfileView(RetrieveAPIView):
     serializer_class = UserProfileSerializer
     lookup_field = "username"
     
-
-class Logout(APIView):
-    def post(self, request):
-        request.User.auth_token.delete()
-        return Response(status=200)
