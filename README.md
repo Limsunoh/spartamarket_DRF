@@ -40,10 +40,10 @@
 c:\Users\BIOSTAR\Desktop\사진\ERD.png
 
 ## Troubling/Troubleshooting
-- *회원상세 보기 검사할때 남의 로그인 정보까지 모두 보이는 참사 발생
+- *회원상세 보기 검사할때 남의 로그인 정보까지 모두 보이는 참사 발생*
     - view에서 ListAPIView 때문이라는걸 검색을 통해 알아낸뒤 ListAPIView대신 RetrieveAPiView를 사용 
 
-- *회원 프로필 수정 시 로그인된 사용자라면 다른 사용자의 프로필까지 수정가능함
+- *회원 프로필 수정 시 로그인된 사용자라면 다른 사용자의 프로필까지 수정가능함*
     - serializer에 권한 확인하는 로직 작성 및 부분 업데이트 가능하게끔 작성
 
 
