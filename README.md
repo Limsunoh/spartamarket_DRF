@@ -37,7 +37,7 @@
     - **조건**: 이메일, 이름, 닉네임, 생일 입력 필요하며, 성별, 자기소개 생략 가능
 
 ## ERD
-c:\Users\BIOSTAR\Desktop\사진\ERD.png
+![ERD](https://github.com/user-attachments/assets/3bead394-18ef-4144-8f3e-3accc24edc30)
 
 ## Troubling/Troubleshooting
 - *회원상세 보기 검사할때 남의 로그인 정보까지 모두 보이는 참사 발생*
