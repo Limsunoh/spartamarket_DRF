@@ -21,15 +21,14 @@ class ProductListCreateView(ListCreateAPIView):
 
 
 
-
-
-# Retrieve, Update, and Delete a single product
+# 제품 상세 검색, 업데이트 및 삭제
 class ProductDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     lookup_field = 'id'
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+# PUT, DELETE로 들어오면 해당 serializer 실행 
     def get_serializer_class(self):
-        if self.request.method in ['PUT', 'DELETE']:
+        if self.request.method == 'PUT':
             return ProductUpdateSerializer  # Update 시에는 업데이트용 시리얼라이저
-        return ProductDetailSerializer  # Retrieve, Delete 시에는 상세용 시리얼라이저
+        return ProductDetailSerializer  # Delete가 들어오면 시리얼라이즈랑 관계없이 삭제처리됨.

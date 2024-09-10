@@ -39,4 +39,4 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         # 다른 사람의 아이디로 남의 프로필을 수정하려고 할때 권한 거부
         if self.context['request'].user != instance:
             raise PermissionDenied("프로필 수정할 권한이 없음.")
-        return super().update(instance, validated_data)
+        return super().update(instance, validated_data, partial=True)

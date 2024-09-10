@@ -23,11 +23,3 @@ class Product(TimeStampedModel):
 	class Meta:
 		ordering = ["-id"]
 
-
-class Comment(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, 
-                                related_name="comments")
-    content = models.TextField()
-    
-    def __str__(self):
-        return self.content[:20]
