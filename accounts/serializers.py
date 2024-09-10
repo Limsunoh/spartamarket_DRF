@@ -1,5 +1,6 @@
 from .models import User
 from rest_framework import serializers
+from rest_framework.exceptions import PermissionDenied
 
 class UserSerializer(serializers.ModelSerializer):
     def create(self, data):
@@ -28,7 +29,14 @@ class UserProfileSerializer(serializers.ModelSerializer):
                 'birth_date', 'gender', 'memo']
         
         
-class ProductUpdateSerializer(serializers.ModelSerializer):
+class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["title", "content"]  # 제품 업데이트 시 필요한 필드
+        fields = ['username', 'nickname', 'email', 'name',
+                'birth_date', 'gender', 'memo']
+        
+    def update(self, instance, validated_data):
+        # 다른 사람의 아이디로 남의 프로필을 수정하려고 할때 권한 거부
+        if self.context['request'].user != instance:
+            raise PermissionDenied("프로필 수정할 권한이 없음.")
+        return super().update(instance, validated_data)

@@ -1,10 +1,7 @@
-from django.shortcuts import get_object_or_404, render
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView
+from rest_framework.generics import CreateAPIView, RetrieveUpdateAPIView
 from .models import User
-from .serializers import UserProfileSerializer, UserSerializer
-from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
+from .serializers import UserProfileSerializer, UserSerializer, UserUpdateSerializer
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 
 
 # Create your views here.
@@ -13,9 +10,14 @@ class UserCreate(CreateAPIView):
     serializer_class = UserSerializer
     
     
-class ProfileView(RetrieveAPIView):
+class ProfileView(RetrieveUpdateAPIView):
     queryset = User.objects.all()
-    permission_classes = [IsAuthenticated]
-    serializer_class = UserProfileSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
     lookup_field = "username"
     
+    def get_serializer_class(self):
+        if self.request.method == "PUT":
+            return UserUpdateSerializer
+        return UserProfileSerializer
+    
+
